@@ -4,7 +4,7 @@ import { Password } from './Password';
 
 export interface UserProps {
   email: string;
-  password: Password;
+  password: Password; // Using Value Object
   username: string;
   createdAt: Date;
   deactivateDate?: Date;
@@ -21,6 +21,8 @@ export class User {
       createdAt: props.createdAt ?? new Date(),
     };
   }
+
+  // Getters and setters to do not depend on ORM
 
   public get id(): string {
     return this._id;

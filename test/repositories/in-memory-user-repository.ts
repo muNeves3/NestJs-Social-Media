@@ -1,6 +1,7 @@
 import { User } from '@application/entities/User';
 import { UserRepository } from '@application/repositories/user-repository';
 
+// implementing in-memory repository to not depend on database
 export class InMemoryUserRepository implements UserRepository {
   cancel(id: string): Promise<void> {
     throw new Error('Method not implemented.');

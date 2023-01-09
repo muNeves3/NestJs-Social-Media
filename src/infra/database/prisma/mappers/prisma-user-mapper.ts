@@ -1,5 +1,6 @@
 import { User } from '@application/entities/User';
 
+// Mapper to convert from domain entity to Prisma entity
 export class PrismaUserMapper {
   static toPrisma(user: User) {
     return {

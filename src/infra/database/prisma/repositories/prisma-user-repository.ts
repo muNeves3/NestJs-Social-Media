@@ -15,17 +15,17 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async create(user: User): Promise<void> {
-    throw new Error('Method not implemented.');
+    const userData = PrismaUserMapper.toPrisma(user);
+
+    await this.prismaService.user.create({
+      data: userData,
+    });
   }
   async findByEmail(email: string): Promise<User | null> {
     throw new Error('Method not implemented.');
   }
 
   async save(user: User): Promise<void> {
-    const userData = PrismaUserMapper.toPrisma(user);
-
-    await this.prismaService.user.create({
-      data: userData,
-    });
+    throw new Error('Method not implemented.');
   }
 }

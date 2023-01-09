@@ -25,7 +25,7 @@ export class CreateUser {
       username,
     });
 
-    await this.userRepository.create(user);
+    await this.userRepository.create(user); // will trigger the create method on infra layer
 
     return { user };
   }
