@@ -7,7 +7,7 @@ export interface UserProps {
   password: Password; // Using Value Object
   username: string;
   createdAt: Date;
-  deactivateDate?: Date;
+  deactivateDate?: Date | null;
 }
 
 export class User {
