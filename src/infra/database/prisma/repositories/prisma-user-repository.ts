@@ -5,6 +5,7 @@ import { GetUserDTO } from '@infra/http/DTOs/get-user-DTO';
 import { Injectable } from '@nestjs/common';
 import { PrismaUserMapper } from '../mappers/prisma-user-mapper';
 import { PrismaService } from '../prisma.service';
+import { UserNotFoundError } from '@application/use-cases/errors/user-not-found-error';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -25,12 +26,6 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async cancel(id: string): Promise<GetUserDTO> {
-    const user = await this._getUserPrismaEntity(id);
-
-    if (!user) {
-      throw new Error('User not found');
-    }
-
     await this.prismaService.user.update({
       where: {
         id,
@@ -39,6 +34,12 @@ export class PrismaUserRepository implements UserRepository {
         deactivateDate: new Date(),
       },
     });
+
+    const user = await this._getUserPrismaEntity(id);
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
 
     return PrismaUserMapper.toDTO(user);
   }
