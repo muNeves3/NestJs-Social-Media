@@ -1,7 +1,7 @@
 import { GetUserDTO } from '@infra/http/DTOs/get-user-DTO';
 import { Injectable } from '@nestjs/common';
-import { User } from '../entities/User';
-import { UserRepository } from '../repositories/user-repository';
+import { User } from '../../entities/User';
+import { UserRepository } from '../../repositories/user-repository';
 
 interface FindUserByIdRequest {
   id: string;

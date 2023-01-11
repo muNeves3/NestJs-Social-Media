@@ -1,6 +1,6 @@
 import { GetUserDTO } from '@infra/http/DTOs/get-user-DTO';
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from '../repositories/user-repository';
+import { UserRepository } from '../../repositories/user-repository';
 
 interface CancelUserRequest {
   id: string;
