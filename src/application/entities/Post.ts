@@ -34,6 +34,22 @@ export class Post {
     this.userId = userId;
   }
 
+  public get title(): Title {
+    return this.props.title;
+  }
+
+  public set title(title: Title) {
+    this.props.title = title;
+  }
+
+  public get text(): Text {
+    return this.props.text;
+  }
+
+  public set text(text: Text) {
+    this.props.text = text;
+  }
+
   public get publishedAt(): Date {
     return this.props.publishedAt;
   }

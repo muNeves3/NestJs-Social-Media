@@ -6,6 +6,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaUserMapper } from '../mappers/prisma-user-mapper';
 import { PrismaService } from '../prisma.service';
 import { UserNotFoundError } from '@application/use-cases/errors/user-not-found-error';
+import { GetPostDTO } from '@infra/http/DTOs/get-post-DTO';
+import { PrismaPostMapper } from '../mappers/prisma-post-mapper';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -23,6 +25,27 @@ export class PrismaUserRepository implements UserRepository {
     }
 
     return user;
+  }
+
+  async getUserPosts(id: string): Promise<GetPostDTO[]> {
+    const userPosts = await this.prismaService.user.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        Post: true,
+      },
+    });
+
+    if (!userPosts?.Post) {
+      return [] as GetPostDTO[];
+    }
+
+    userPosts?.Post.map((post) => {
+      post = PrismaPostMapper.toDTO(post);
+    });
+
+    return userPosts.Post;
   }
 
   async cancel(id: string): Promise<GetUserDTO> {

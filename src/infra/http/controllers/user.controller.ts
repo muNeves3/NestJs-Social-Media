@@ -1,8 +1,10 @@
 import { CancelUser } from '@application/use-cases/user/cancel-user';
 import { CreateUser } from '@application/use-cases/user/create-user';
+import { GetUserPosts } from '@application/use-cases/user/get-user-posts';
 import {
   Body,
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Post,
@@ -15,6 +17,7 @@ export class UserController {
   constructor(
     private readonly createUser: CreateUser,
     private readonly cancelUser: CancelUser,
+    private readonly getUserPosts: GetUserPosts,
   ) {}
 
   @Post()
@@ -41,6 +44,19 @@ export class UserController {
       const user = await this.cancelUser.execute({ id });
 
       return { user };
+    } catch (error: any) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Get('/posts')
+  async getUserPostsRoute(@Body() body: { id: string }) {
+    const { id } = body;
+
+    try {
+      const userPosts = await this.getUserPosts.execute({ id });
+
+      return { userPosts };
     } catch (error: any) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

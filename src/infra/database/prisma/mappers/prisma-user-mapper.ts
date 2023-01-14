@@ -1,4 +1,3 @@
-import { Password } from '@application/entities/Password';
 import { User as UserEntity } from '@application/entities/User';
 import { GetUserDTO } from '@infra/http/DTOs/get-user-DTO';
 import { User as UserPrismaEntity } from '@prisma/client';
