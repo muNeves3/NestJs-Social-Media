@@ -37,6 +37,8 @@ export class PrismaUserRepository implements UserRepository {
       },
     });
 
+    console.log(userPosts);
+
     if (!userPosts?.Post) {
       return [] as GetPostDTO[];
     }
