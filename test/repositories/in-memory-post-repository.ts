@@ -1,3 +1,4 @@
+import { Like } from '@application/entities/Like';
 import { Post } from '@application/entities/Post';
 import { User } from '@application/entities/User';
 import { PostRepository } from '@application/repositories/post-repository';
@@ -9,6 +10,12 @@ import { GetUserDTO } from '@infra/http/DTOs/get-user-DTO';
 
 // implementing in-memory repository to not depend on database
 export class InMemoryPostRepository implements PostRepository {
+  like(like: Like): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+  getPostLikesCount(postId: string): Promise<number> {
+    throw new Error('Method not implemented.');
+  }
   public posts: Post[] = [];
 
   _getPostEntity(id: string): Post | null {

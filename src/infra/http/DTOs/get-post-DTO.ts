@@ -4,4 +4,5 @@ export class GetPostDTO {
   text: string;
   publishedAt: Date;
   id: string;
+  likes: number;
 }

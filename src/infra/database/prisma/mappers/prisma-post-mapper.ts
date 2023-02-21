@@ -16,13 +16,17 @@ export class PrismaPostMapper {
     return data;
   }
 
-  static toDTO(post: PostPrismaEntity | PostEntity) {
+  static toDTO(
+    post: PostPrismaEntity | PostEntity,
+    likes?: number,
+  ): GetPostDTO {
     const data = {
       id: post.id,
       publishedAt: post.publishedAt,
       text: post.text,
       title: post.title,
       userId: post.userId,
+      likes: likes || 0,
     } as GetPostDTO;
 
     return data;

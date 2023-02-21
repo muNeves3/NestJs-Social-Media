@@ -37,17 +37,17 @@ export class PrismaUserRepository implements UserRepository {
       },
     });
 
-    console.log(userPosts);
-
     if (!userPosts?.Post) {
       return [] as GetPostDTO[];
     }
 
-    userPosts?.Post.map((post) => {
-      post = PrismaPostMapper.toDTO(post);
+    const userPostsArr = userPosts.Post as GetPostDTO[];
+
+    userPostsArr.map((post) => {
+      post = PrismaPostMapper.toDTO(post, 0);
     });
 
-    return userPosts.Post;
+    return userPostsArr;
   }
 
   async cancel(id: string): Promise<GetUserDTO> {

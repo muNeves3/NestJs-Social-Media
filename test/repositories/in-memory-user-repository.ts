@@ -32,7 +32,7 @@ export class InMemoryUserRepository implements UserRepository {
     const postsDto: GetPostDTO[] = [];
 
     userPosts.map((post) => {
-      postsDto.push(PrismaPostMapper.toDTO(post));
+      postsDto.push(PrismaPostMapper.toDTO(post, 0));
     });
 
     return postsDto;

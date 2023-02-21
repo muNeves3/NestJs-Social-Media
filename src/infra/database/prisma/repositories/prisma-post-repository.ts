@@ -4,10 +4,13 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { PrismaPostMapper } from '../mappers/prisma-post-mapper';
 import { GetPostDTO } from '@infra/http/DTOs/get-post-DTO';
+import { PrismaLikeMapper } from '../mappers/prisma-like-mapper';
+import { Like } from '@application/entities/Like';
 
 @Injectable()
 export class PrismaPostRepository implements PostRepository {
   constructor(private readonly prismaService: PrismaService) {}
+
   async create(post: Post): Promise<void> {
     const postData = PrismaPostMapper.toPrisma(post);
 
@@ -15,20 +18,43 @@ export class PrismaPostRepository implements PostRepository {
       data: postData,
     });
   }
+
   delete(id: string): Promise<Post> {
     throw new Error('Method not implemented.');
   }
+
   async findById(id: string): Promise<GetPostDTO | null> {
+    console.log(id);
     const postData = await this.prismaService.post.findUnique({
       where: {
         id,
       },
     });
 
+    const likes = await this.getPostLikesCount(id);
+
     if (!postData) {
       return null;
     }
 
-    return PrismaPostMapper.toDTO(postData);
+    return PrismaPostMapper.toDTO(postData, likes);
+  }
+
+  async like(like: Like): Promise<void> {
+    const likeData = PrismaLikeMapper.toPrisma(like);
+
+    const data = await this.prismaService.like.create({
+      data: likeData,
+    });
+  }
+
+  async getPostLikesCount(postId: string): Promise<number> {
+    const likes = await this.prismaService.like.count({
+      where: {
+        postId: postId,
+      },
+    });
+
+    return likes ?? 0;
   }
 }
