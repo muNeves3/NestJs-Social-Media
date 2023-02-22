@@ -1,22 +1,19 @@
 import { Like } from '@application/entities/Like';
 import { Post } from '@application/entities/Post';
-import { User } from '@application/entities/User';
 import { PostRepository } from '@application/repositories/post-repository';
-import { UserNotFoundError } from '@application/use-cases/errors/user-not-found-error';
 import { PrismaPostMapper } from '@infra/database/prisma/mappers/prisma-post-mapper';
-import { PrismaUserMapper } from '@infra/database/prisma/mappers/prisma-user-mapper';
 import { GetPostDTO } from '@infra/http/DTOs/get-post-DTO';
-import { GetUserDTO } from '@infra/http/DTOs/get-user-DTO';
 
 // implementing in-memory repository to not depend on database
 export class InMemoryPostRepository implements PostRepository {
+  public posts: Post[] = [];
+
   like(like: Like): Promise<void> {
     throw new Error('Method not implemented.');
   }
   getPostLikesCount(postId: string): Promise<number> {
     throw new Error('Method not implemented.');
   }
-  public posts: Post[] = [];
 
   _getPostEntity(id: string): Post | null {
     const post = this.posts.find((item) => item.id === id);

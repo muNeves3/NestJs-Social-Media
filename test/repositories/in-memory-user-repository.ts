@@ -9,6 +9,7 @@ import { GetUserDTO } from '@infra/http/DTOs/get-user-DTO';
 
 // implementing in-memory repository to not depend on database
 export class InMemoryUserRepository implements UserRepository {
+  public users: User[] = [];
   getUserPosts(id: string): Promise<GetPostDTO[]> {
     throw new Error('Method not implemented.');
   }
@@ -57,7 +58,6 @@ export class InMemoryUserRepository implements UserRepository {
 
     return PrismaUserMapper.toDTO(user);
   }
-  public users: User[] = [];
 
   async findByEmail(email: string): Promise<GetUserDTO | null> {
     const user = this.users.find((item) => item.email === email);
