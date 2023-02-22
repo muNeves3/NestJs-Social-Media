@@ -1,6 +1,6 @@
 import { Post } from '@application/entities/Post';
 import { PostRepository } from '@application/repositories/post-repository';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { PrismaPostMapper } from '../mappers/prisma-post-mapper';
 import { GetPostDTO } from '@infra/http/DTOs/get-post-DTO';
@@ -42,10 +42,39 @@ export class PrismaPostRepository implements PostRepository {
 
   async like(like: Like): Promise<void> {
     const likeData = PrismaLikeMapper.toPrisma(like);
+    if (like.postId) {
+      const userAlreadyLikedPost = await this.getIfUserLikedPost(
+        like.postId,
+        like.userId,
+      );
 
-    const data = await this.prismaService.like.create({
-      data: likeData,
+      if (userAlreadyLikedPost) {
+        throw new HttpException(
+          'This user already liked this post',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      const data = await this.prismaService.like.create({
+        data: likeData,
+      });
+    }
+  }
+
+  async getIfUserLikedPost(postId: string, userId: string): Promise<boolean> {
+    const data = await this.prismaService.post.findUnique({
+      where: {
+        id: postId,
+      },
+      include: {
+        Like: true,
+      },
     });
+
+    if (data?.userId === userId) {
+      return true;
+    }
+    return false;
   }
 
   async getPostLikesCount(postId: string): Promise<number> {
