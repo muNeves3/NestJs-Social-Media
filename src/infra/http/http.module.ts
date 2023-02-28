@@ -8,10 +8,11 @@ import { PostController } from './controllers/post.controller';
 import { GetUserPosts } from '@application/use-cases/user/get-user-posts';
 import { FindPostById } from '@application/use-cases/post/find-post-by-id';
 import { LikePost } from '@application/use-cases/post/like-post';
+import { CommentController } from './controllers/comment.controller';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [UserController, PostController],
+  controllers: [UserController, PostController, CommentController],
   providers: [
     CreateUser,
     CancelUser,
