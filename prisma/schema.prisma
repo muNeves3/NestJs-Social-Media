@@ -26,19 +26,6 @@ model User {
   @@map("user")
 }
 
-model Post {
-  id          String    @id
-  title       String
-  text        String
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String
-  publishedAt DateTime  @default(now())
-  Like        Like[]
-  Comment     Comment[]
-
-  @@map("post")
-}
-
 model Like {
   id        String   @id
   user      User     @relation(fields: [userId], references: [id])
@@ -50,6 +37,19 @@ model Like {
   createdAt DateTime @default(now())
 
   @@map("likes")
+}
+
+model Post {
+  id          String    @id
+  title       String
+  text        String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  publishedAt DateTime  @default(now())
+  Like        Like[]
+  Comment     Comment[]
+
+  @@map("post")
 }
 
 model Comment {

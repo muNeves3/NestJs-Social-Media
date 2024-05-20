@@ -71,9 +71,10 @@ export class PrismaPostRepository implements PostRepository {
       },
     });
 
-    if (data?.userId === userId) {
+    if (data?.Like.find((x) => x.userId === userId) != undefined) {
       return true;
     }
+
     return false;
   }
 
