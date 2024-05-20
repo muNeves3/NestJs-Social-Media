@@ -19,6 +19,12 @@ export class PrismaPostRepository implements PostRepository {
     });
   }
 
+  async getAll(): Promise<GetPostDTO[]> {
+    const data = await this.prismaService.post.findMany();
+
+    return data.map((x) => PrismaPostMapper.toDTO(x));
+  }
+
   delete(id: string): Promise<Post> {
     throw new Error('Method not implemented.');
   }

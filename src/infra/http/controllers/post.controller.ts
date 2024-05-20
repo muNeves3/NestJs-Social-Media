@@ -1,6 +1,7 @@
 import { CreatePost } from '@application/use-cases/post/create-post';
 import { FindPostById } from '@application/use-cases/post/find-post-by-id';
 import { LikePost } from '@application/use-cases/post/like-post';
+import { GetAll } from '@application/use-cases/post/getAll';
 import {
   Body,
   Controller,
@@ -20,6 +21,7 @@ export class PostController {
     private readonly createPost: CreatePost,
     private readonly findPostById: FindPostById,
     private readonly likePost: LikePost,
+    private readonly getAllPosts: GetAll,
   ) {}
 
   @Post()
@@ -45,6 +47,16 @@ export class PostController {
     try {
       const { post } = await this.findPostById.execute({ id });
       return { post };
+    } catch (error: any) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Get('/')
+  async getAll() {
+    try {
+      const posts = await this.getAllPosts.execute();
+      return { posts: posts.posts };
     } catch (error: any) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

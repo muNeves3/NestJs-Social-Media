@@ -6,6 +6,7 @@ export abstract class PostRepository {
   abstract create(post: Post): Promise<void>;
   abstract delete(id: string): Promise<Post>;
   abstract findById(id: string): Promise<GetPostDTO | null>;
+  abstract getAll(): Promise<GetPostDTO[]>;
   abstract like(like: Like): Promise<void>;
   abstract getPostLikesCount(postId: string): Promise<number>;
 }

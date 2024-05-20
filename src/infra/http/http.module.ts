@@ -10,6 +10,7 @@ import { FindPostById } from '@application/use-cases/post/find-post-by-id';
 import { LikePost } from '@application/use-cases/post/like-post';
 import { CommentController } from './controllers/comment.controller';
 import { CreateComment } from '@application/use-cases/comment/create-comment';
+import { GetAll } from '@application/use-cases/post/getAll';
 
 @Module({
   imports: [DatabaseModule],
@@ -20,6 +21,7 @@ import { CreateComment } from '@application/use-cases/comment/create-comment';
     CreatePost,
     GetUserPosts,
     FindPostById,
+    GetAll,
     LikePost,
     CreateComment,
   ],
