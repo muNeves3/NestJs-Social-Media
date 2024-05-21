@@ -41,7 +41,8 @@ export class InMemoryPostRepository implements PostRepository {
 
   async getAll(): Promise<GetPostDTO[]> {
     let postsDto: GetPostDTO[] = [];
-    posts.map(post => postsDto.push(PrismaPostMapper.toDTO(post, 0)));
+    this.posts.map(post => postsDto.push(PrismaPostMapper.toDTO(post, 0)));
+    return postsDto;
   }
   //   _getUserEntity(id: string): User | null {
   //     const user = this.users.find((item) => item.id === id);
