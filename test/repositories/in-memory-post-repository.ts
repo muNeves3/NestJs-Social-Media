@@ -14,7 +14,7 @@ export class InMemoryPostRepository implements PostRepository {
   getPostLikesCount(postId: string): Promise<number> {
     throw new Error('Method not implemented.');
   }
-
+  
   _getPostEntity(id: string): Post | null {
     const post = this.posts.find((item) => item.id === id);
 
@@ -37,6 +37,11 @@ export class InMemoryPostRepository implements PostRepository {
     }
 
     return PrismaPostMapper.toDTO(post);
+  }
+
+  async getAll(): Promise<GetPostDTO[]> {
+    let postsDto: GetPostDTO[] = [];
+    posts.map(post => postsDto.push(PrismaPostMapper.toDTO(post, 0)));
   }
   //   _getUserEntity(id: string): User | null {
   //     const user = this.users.find((item) => item.id === id);
