@@ -14,6 +14,8 @@ import {
 import { CreateLikeBodyDTO } from '../DTOs/create-like-body-DTO';
 import { CreatePostBodyDTO } from '../DTOs/create-post-body-DTO';
 import { PostViewModel } from '../view-models/post-view-model';
+import { GetPostDTO } from '../DTOs/get-post-DTO';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('/post')
 export class PostController {
@@ -43,6 +45,10 @@ export class PostController {
   }
 
   @Get('/:id')
+  @ApiOkResponse({
+    type: GetPostDTO,
+    isArray: true,
+  })
   async findById(@Param('id') id: string) {
     try {
       const { post } = await this.findPostById.execute({ id });
@@ -53,6 +59,10 @@ export class PostController {
   }
 
   @Get('/')
+  @ApiOkResponse({
+    type: GetPostDTO,
+    isArray: true,
+  })
   async getAll() {
     try {
       const posts = await this.getAllPosts.execute();

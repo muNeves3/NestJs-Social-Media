@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { CreateUserBodyDTO } from '../DTOs/create-user-body-DTO';
 import { UserViewModel } from '../view-models/user-view-model';
+import { ApiOkResponse } from '@nestjs/swagger';
+import { GetPostDTO } from '../DTOs/get-post-DTO';
 
 @Controller('/user')
 export class UserController {
@@ -50,6 +52,10 @@ export class UserController {
   }
 
   @Get('/posts')
+  @ApiOkResponse({
+    type: GetPostDTO,
+    isArray: true,
+  })
   async getUserPostsRoute(@Body() body: { id: string }) {
     const { id } = body;
 

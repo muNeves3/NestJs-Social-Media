@@ -61,7 +61,7 @@ export class PrismaPostRepository implements PostRepository {
         );
       }
 
-      const data = await this.prismaService.like.create({
+      await this.prismaService.like.create({
         data: likeData,
       });
     }
