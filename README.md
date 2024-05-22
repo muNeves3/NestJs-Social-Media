@@ -24,7 +24,7 @@
 
 ## Description
 
-### A simple social-media like api, that was created with the goal to learn how can a social media be created. It is available in http://3.15.214.215:3000
+### A simple social-media like api, that was created with the goal to learn how can a social media be created.
 
 ### The documentation of the routes is in http://3.15.214.215:3000/api
 
