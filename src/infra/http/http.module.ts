@@ -11,10 +11,18 @@ import { LikePost } from '@application/use-cases/post/like-post';
 import { CommentController } from './controllers/comment.controller';
 import { CreateComment } from '@application/use-cases/comment/create-comment';
 import { GetAll } from '@application/use-cases/post/getAll';
+import { CreateFollower } from '@application/use-cases/follower/create-follower';
+import { Follower } from '@application/entities/Follower';
+import { FollowerController } from './controllers/follower.controller';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [UserController, PostController, CommentController],
+  controllers: [
+    UserController,
+    PostController,
+    CommentController,
+    FollowerController,
+  ],
   providers: [
     CreateUser,
     CancelUser,
@@ -24,6 +32,7 @@ import { GetAll } from '@application/use-cases/post/getAll';
     GetAll,
     LikePost,
     CreateComment,
+    CreateFollower,
   ],
 })
 export class HttpModule {}
