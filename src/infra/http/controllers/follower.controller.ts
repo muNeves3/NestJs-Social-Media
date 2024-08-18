@@ -16,6 +16,7 @@ import {
   findFollwoerByIdResponse,
   findFollowerById,
 } from '@application/use-cases/follower/find-follower-by-id';
+import { DeleteFollowerDTO } from '../DTOs/delete-follower-body-DTO';
 //import { GetAll } from '@application/use-cases/follower/get-all';
 
 @Controller('/follower')
@@ -60,7 +61,7 @@ export class FollowerController {
   }
 
   @Post('/delete')
-  async delete(@Body() body: { id: string }) {
+  async delete(@Body() body: DeleteFollowerDTO) {
     try {
       const follower = await this.findFollowerById.execute({ id: body.id });
 
