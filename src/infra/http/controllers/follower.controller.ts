@@ -47,7 +47,7 @@ export class FollowerController {
     return [];
   }
 
-  @Get('/follower/:id')
+  @Get('/:id')
   async getFollowerById(
     @Param('id') id: string,
   ): Promise<findFollwoerByIdResponse> {
