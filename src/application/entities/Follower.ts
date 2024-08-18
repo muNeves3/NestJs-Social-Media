@@ -5,18 +5,34 @@ export interface FollowerProps {
   followerId: string;
   userId: string;
   createdAt: Date;
+  id: string;
 }
 
 export class Follower {
   private _id: string;
   private props: FollowerProps;
 
-  constructor(props: Replace<FollowerProps, { createdAt?: Date }>) {
+  constructor(
+    props: Replace<FollowerProps, { createdAt?: Date; id?: string }>,
+  ) {
     this._id = randomUUID();
-    this.props = {
-      ...props,
-      createdAt: props.createdAt ?? new Date(),
-    };
+    if ('id' in props) {
+      if (props.id !== undefined) {
+        this.props = {
+          id: props.id,
+          createdAt: props.createdAt ?? new Date(),
+          followerId: props.followerId,
+          userId: props.userId,
+        };
+      }
+    } else {
+      this.props = {
+        id: this._id,
+        followerId: props.followerId,
+        userId: props.userId,
+        createdAt: props.createdAt ?? new Date(),
+      };
+    }
   }
 
   // Getters and setters to do not depend on ORM

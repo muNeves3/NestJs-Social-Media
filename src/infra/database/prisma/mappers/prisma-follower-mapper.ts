@@ -1,6 +1,6 @@
 import { Follower as FollowerEntity } from '@application/entities/Follower';
 import { GetUserDTO } from '@infra/http/DTOs/get-user-DTO';
-import { Follower as PrismaFollowerEntity } from '@prisma/client';
+import { Follower, Follower as PrismaFollowerEntity } from '@prisma/client';
 
 export class PrismaFollowerMapper {
   static toPrisma(follower: PrismaFollowerEntity) {
@@ -18,5 +18,16 @@ export class PrismaFollowerMapper {
       createdAt: follower.createdAt,
     };
     return data;
+  }
+
+  static toDomain({ createdAt, followerId, id, userId }: PrismaFollowerEntity) {
+    const follower = new FollowerEntity({
+      id,
+      followerId,
+      userId,
+      createdAt: new Date(),
+    });
+
+    return follower;
   }
 }

@@ -14,6 +14,8 @@ import { GetAll } from '@application/use-cases/post/getAll';
 import { CreateFollower } from '@application/use-cases/follower/create-follower';
 import { Follower } from '@application/entities/Follower';
 import { FollowerController } from './controllers/follower.controller';
+import { RemoveFollower } from '@application/use-cases/follower/remove-follower';
+import { findFollowerById } from '@application/use-cases/follower/find-follower-by-id';
 
 @Module({
   imports: [DatabaseModule],
@@ -33,6 +35,8 @@ import { FollowerController } from './controllers/follower.controller';
     LikePost,
     CreateComment,
     CreateFollower,
+    RemoveFollower,
+    findFollowerById,
   ],
 })
 export class HttpModule {}
